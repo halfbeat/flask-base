@@ -1,0 +1,18 @@
+<div class="bg-primary rounded-top p-2">
+    <nav class="navbar navbar-expand-md navbar-dark p-0 justify-content-between">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-fw fa-bars"> </i>
+        </button>
+        <a class="navbar-brand ml-2" style="text-overflow: ellipsis; overflow: hidden;" href="/">
+            {{nombreAplicacion}}
+        </a>
+
+        <div class="navbar-text text-uppercase my-2 my-lg-0" *ngIf="currentUser">
+            <i class="fa fa-fw fa-user-circle-o"></i>
+            {% if not current_user.is_anonymous %}
+            <a href="{{ url_for('private.hello_me') }}">{{ current_user.name }}</a>
+            {% endif %}
+        </div>
+    </nav>
+</div>

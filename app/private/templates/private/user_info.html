@@ -1,0 +1,23 @@
+{% extends "base_template.html" %}
+
+{% block title %}User info{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">Username</div>
+            <div class="col-md-10">{{username}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Email</div>
+            <div class="col-md-10">{{email}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Id</div>
+            <div class="col-md-10">{{user_id}}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
