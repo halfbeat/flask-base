@@ -6,35 +6,45 @@ from werkzeug.urls import url_parse
 from app import login_manager
 from . import auth_bp
 from .forms import SignupForm, LoginForm
-from .models import User, users, get_user
+from .models import User
 from .. import oidc
 
 @auth_bp.route("/signup/", methods=["GET", "POST"])
 def show_signup_form():
     if current_user.is_authenticated:
-        return redirect(url_for('public.index'))
+        return redirect(url_for('index'))
     form = SignupForm()
+    error = None
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
         password = form.password.data
-        # Creamos el usuario y lo guardamos
-        user = User(len(users) + 1, name, email, password)
-        users.append(user)
-        # Dejamos al usuario logueado
-        login_user(user, remember=True)
-        next_page = request.args.get('next', None)
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('public.index')
-        return redirect(next_page)
-    return render_template("auth/signup_form.html", form=form)
+        # Comprobamos que no hay ya un usuario con ese email
+        user = User.get_by_email(email)
+        if user is not None:
+            error = f'El email {email} ya está siendo utilizado por otro usuario'
+        else:
+            # Creamos el usuario y lo guardamos
+            user = User(name=name, email=email)
+            user.set_password(password)
+            user.save()
+            # Dejamos al usuario logueado
+            login_user(user, remember=True)
+            next_page = request.args.get('next', None)
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+            return redirect(next_page)
+    return render_template("signup_form.html", form=form, error=error)
 
 @auth_bp.route('/custom_callback')
 @oidc.custom_callback
 def callback(data):    
     print(oidc.get_access_token())    
-    user = User(len(users) + 1, oidc.user_getfield('email'), oidc.user_getfield('email'), oidc.get_access_token())
-    users.append(user)
+    user = User.get_by_email(oidc.user_getfield('email'))
+    if not user:
+        user = User(name = oidc.user_getfield('email'), email=oidc.user_getfield('email'))
+    user.set_password(oidc.get_access_token())
+    user.save()
     login_user(user)
     next_page = request.args.get('next')
     if not next_page or url_parse(next_page).netloc != '':

@@ -1,15 +1,20 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from app import db
 
 
-class User(UserMixin):
+class User(db.Model, UserMixin):
 
-    def __init__(self, id, name, email, password, is_admin=False):
-        self.id = id
-        self.name = name
-        self.email = email
-        self.password = generate_password_hash(password)
-        self.is_admin = is_admin
+    __tablename__ = 'blog_user'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(256), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return f'<User {self.email}>'
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -17,36 +22,15 @@ class User(UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def __repr__(self):
-        return '<User {}>'.format(self.email)
+    def save(self):
+        if not self.id:
+            db.session.add(self)
+        db.session.commit()
 
     @staticmethod
     def get_by_id(id):
-        """
-        docstring
-        """
-        for user in users:
-            if user.id == id:
-                return user
-        return None   
+        return User.query.get(id)
 
     @staticmethod
     def get_by_email(email):
-        """
-        docstring
-        """
-        for user in users:
-            if user.email == email:
-                return user
-        return None   
-
-users = []
-
-def get_user(email):
-    for user in users:
-        if user.email == email:
-            return user
-    return None        
-
-def save_user(username, token):
-    pass
+        return User.query.filter_by(email=email).first()
