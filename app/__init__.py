@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_oidc import OpenIDConnect
@@ -40,6 +40,10 @@ def create_app(settings_module='config.local'):
 
     from .proyectos import proyectos_bp
     app.register_blueprint(proyectos_bp)
+
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return render_template('404.html', title = '404'), 404  
 
     @app.context_processor
     def inject_stage_and_region():

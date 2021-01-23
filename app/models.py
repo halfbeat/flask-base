@@ -11,6 +11,10 @@ class TipoProyecto(db.Model):
     id = db.Column('C_TP_PROYECTO_ID', db.Integer, primary_key=True)
     descripcion = db.Column('D_DESCRIPCION', db.String(100), nullable=False)
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit() 
+
 
 class LenguajeProgramacion(db.Model):
     __tablename__ = 'LENGUAJE_PROGRAMACION'
@@ -28,6 +32,7 @@ class Proyecto(db.Model):
     id = db.Column('C_PROYECTO_ID', db.Integer,
                    primary_key=True, autoincrement=True)
     nombre = db.Column('D_PROYECTO', db.String(256), nullable=False)
+    descripcion = db.Column('D_DESCRIPCION', db.String(256), nullable=True)
     tipo = db.Column(db.Integer, db.ForeignKey(
         'TIPO_PROYECTO.C_TP_PROYECTO_ID', ondelete='CASCADE'), nullable=False)
     lenguajes = db.relationship("LenguajeProgramacion", secondary=lenguaje_proyecto)
@@ -35,6 +40,22 @@ class Proyecto(db.Model):
 
     def __repr__(self):
         return f"<Proyecto {self.nombre}"
+
+    @staticmethod
+    def get_by_id(id):
+        return Proyecto.query.get(id)
+
+    @staticmethod
+    def get_all():
+        return Proyecto.query.all()
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()   
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()      
 
 
 class Post(db.Model):

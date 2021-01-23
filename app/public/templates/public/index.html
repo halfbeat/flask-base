@@ -3,9 +3,14 @@
 {% block title %}{{nombreAplicacion}}{% endblock %}
 
 {% block content %}
-    <ul>
-    {% for post in posts %}
-        <li>{{ post.title }}</li>
+<h4>Aplicación de gestión de proyectos de la Gerencia de Servicios Sociales de la Junta de Castilla y León.</h5>
+
+<h4 class="mt-5">Proyectos</h5>
+<hr/>
+<div>
+    {% for proyecto in proyectos %}
+    <a class="proyecto btn-link" href="{{ url_for('proyectos.proyecto', id_proyecto=proyecto.id) }}">
+        {{proyecto.nombre}}: {{proyecto.descripcion}}
     {% endfor %}
-    </ul>
+</div>
 {% endblock %}

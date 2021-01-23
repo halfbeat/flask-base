@@ -1,17 +1,22 @@
-<div class="pt-2 rounded-bottom">
+<div class="pt-2">
     <div class="d-flex  ">
+        <!--
         <div class="p-2 w-25 d-none d-md-block align-self-center justify-content-center text-center">
-            <img src="{{ url_for('static', filename='logo_jcyl.png' ) }}" style="height: 2.25cm;"
+            <img src="{{ url_for('static', filename='logo_jcyl.svg' ) }}" style="height: 2.25cm;"
                 class="img-fluid d-none mx-auto d-block d-md-block"
                 alt="Logo Consejería de Familia y Servicios Sociales">
         </div>
+        -->
         <div class="p-2 flex-grow-1  align-self-center justify-content-center text-center">
-            <span class="h4">{{nombreAplicacion}}</span><br>Version: {{version}}
+
             <ul class="nav nav-fill">
                 <li class="nav-item">
                     <a class="nav-link py-0 active" href="#">
                         <a class="nav-link navbar-text" href="#">Términos y condiciones</a>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <span class="h4">{{nombreAplicacion}}</span><br>Version: {{version}}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link py-0" href="#">
@@ -20,9 +25,11 @@
                 </li>
             </ul>
         </div>
+        <!--
         <div class="p-1 w-25 d-none d-md-block  align-self-center">
             <img src="{{ url_for('static', filename='logo_gss.png' ) }}" alt="Logo Gerencia" style="height: 1.8cm;"
                 class="img-fluid d-none mx-auto d-block d-md-block">
         </div>
+        -->
     </div>
 </div>

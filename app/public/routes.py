@@ -1,12 +1,13 @@
 from flask import abort, render_template
+from app.models import Proyecto
 from app.models import Post
 from . import public_bp
 
 
 @public_bp.route("/")
 def index():
-    posts = Post.get_all()
-    return render_template("public/index.html", posts=posts)
+    proyectos = Proyecto.query.all()
+    return render_template("public/index.html", proyectos=proyectos)
 
 
 @public_bp.route("/p/<string:slug>/")

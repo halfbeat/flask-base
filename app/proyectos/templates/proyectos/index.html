@@ -2,6 +2,23 @@
 
 {% block title %}{{nombreAplicacion}}{% endblock %}
 
+{% block sidebar %}
+<div class="d-flex flex-column justify-content-start mt-2">
+    <h6 class="d-flex justify-content-between flex-items-center">
+        Proyectos
+        <button class="btn btn-sm btn-success" style="font-size: 0.8em;"><i class="fa fa-plus"></i>
+            Nuevo</button>
+    </h6>
+    <input class="form-control mt-1" type="text" placeholder="Encontrar un proyecto ...">
+    <div class="mt-2">
+        {% for proyecto in proyectos %}
+        <a class="proyecto btn btn-link" href="{{ url_for('proyectos.proyecto', id_proyecto=proyecto.id) }}"><i class="fa fa-edit"></i> {{
+            proyecto.nombre }}</a>
+        {% endfor %}
+    </div>
+    <hr />
+</div>
+{% endblock %}
+
 {% block content %}
-<h1>Proyectos</h1>
 {% endblock %}
