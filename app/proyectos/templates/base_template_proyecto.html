@@ -1,0 +1,13 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="mb-4">
+    <h4>[{{proyecto.id}}] {{proyecto.nombre}}: {{proyecto.descripcion}}</h4>
+</div>
+{% include "proyectos/menu_proyecto.html" %}
+
+<div class="mt-4">
+    {% block content_proyecto %}
+    {% endblock %}
+</div>
+{% endblock %}

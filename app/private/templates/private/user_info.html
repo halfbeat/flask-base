@@ -1,0 +1,31 @@
+{% extends "base_template.html" %}
+
+{% block title %}User info{% endblock %}
+
+{% block sidebar %}
+<div class="d-flex flex-column mt-4">
+    <div class="align-self-center avatar-big rounded-circle d-flex flex-column">
+        <div class="align-self-center display-1 pt-5 fa fa-user"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">Username</div>
+            <div class="col-md-10">{{username}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Email</div>
+            <div class="col-md-10">{{email}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Id</div>
+            <div class="col-md-10">{{user_id}}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

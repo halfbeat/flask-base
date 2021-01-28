@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light p-0">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-fw fa-bars"> </i>
+    </button>
+    <a href="/">
+        <img src="{{ url_for('static', filename='logo_jcyl.svg' ) }}" style="height: 1.755cm;"
+            class="img-fluid bg-white p-2" alt="Logo Consejería de Familia y Servicios Sociales">
+    </a>
+    <span class="h5 navbar-text ml-2" style="text-overflow: ellipsis; overflow: hidden;">
+        {{nombreAplicacion}}
+    </span>
+
+    {% if not current_user.is_anonymous %}
+    <div class="collapse navbar-collapse " id="navbar-list-4">
+        <ul class="navbar-nav ml-auto">
+            <a class="nav-link" href="{{ url_for('private.hello_me') }}">{{ current_user.name }}</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i style="font-size: 2em;" class="rounded-circle fa fa-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-header" href="{{ url_for('private.hello_me') }}">{{ current_user.name }}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Dashboard</a>
+                    <a class="dropdown-item" href="{{ url_for('private.hello_me') }}">Editar perfil</a>
+                    <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    {% else %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item ml-auto">
+            <a class="btn btn-info  mr-2" href="{{ url_for('auth.login') }}">Login</a>
+        </li>
+    </ul>
+    {% endif %}
+</nav>
+<hr/>
