@@ -13,3 +13,4 @@ OIDC_OPENID_REALM =  'flask-demo'
 OIDC_SCOPES =  ['openid', 'email', 'profile']
 OIDC_INTROSPECTION_AUTH_METHOD =  'client_secret_post'
 OVERWRITE_REDIRECT_URI =  'http://localhost:5000/custom_callback'        
+

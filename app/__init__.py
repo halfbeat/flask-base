@@ -3,11 +3,13 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_oidc import OpenIDConnect
 from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
 
 login_manager = LoginManager()
 db = SQLAlchemy()
 migrate = Migrate()
 oidc = OpenIDConnect()
+ma = Marshmallow()
 
 
 def create_app(settings_module='config.local'):
@@ -40,6 +42,9 @@ def create_app(settings_module='config.local'):
 
     from .proyectos import proyectos_bp
     app.register_blueprint(proyectos_bp)
+
+    from .api_v1_0 import api_v1_0_bp
+    app.register_blueprint(api_v1_0_bp)
 
     @app.errorhandler(404)
     def page_not_found(error):
