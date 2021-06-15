@@ -52,7 +52,7 @@ def create_app(settings_module='config.local'):
 
     @app.context_processor
     def inject_stage_and_region():
-        return dict(nombreAplicacion="Gestor de aplicaciones", version="0.0.1")
+        return dict(nombreAplicacion="Fintrading S.L.", version="0.0.1")
 
     from datetime import timedelta
     from flask import session

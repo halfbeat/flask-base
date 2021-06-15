@@ -17,7 +17,7 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    
+
 }
 
 a, a:hover, a:focus {
@@ -83,7 +83,7 @@ ul ul a {
     max-width: 250px;
 }
 #content {
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 a[data-toggle="collapse"] {
